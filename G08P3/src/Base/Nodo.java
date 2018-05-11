@@ -13,6 +13,13 @@ public abstract class Nodo {
 	/*
 	 * Functions
 	 */
+	public int getPosTerminal() {
+		for (int i = 0; i < this.tiposTerminales.length; i++) {
+			if(this.tiposTerminales[i].equals(this.valor))
+				return i;
+		}
+		return -1;
+	}
 	public abstract Nodo copy();
 	
 	/*
