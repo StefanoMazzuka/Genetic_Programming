@@ -11,6 +11,4 @@ public class Arbol {
 	private int profundidadMaxima;
 	private boolean esHoja;
 	private boolean esRaiz;
-	
-	
 }

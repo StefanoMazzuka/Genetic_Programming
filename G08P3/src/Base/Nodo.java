@@ -9,8 +9,7 @@ public class Nodo {
 	private final String[] tiposFunciones = {"IF","AND","NOT","OR"};
 	private final String[] tiposTerminales = {"A0","A1","D0","D1","D2","D3"};
 	private int numArgumentos;
-	
-	
+		
 	/*
 	 * Equals
 	 */
@@ -49,7 +48,6 @@ public class Nodo {
 			return false;
 		return true;
 	}
-
 	
 	/*
 	 * Getter and Setters
