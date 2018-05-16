@@ -128,11 +128,15 @@ public class Menu extends JFrame {
 					profundidadArbol = Integer.parseInt(profundidad.getText());
 
 					if (eli.isSelected() == true) {
-
+						/*
+						 * 
+						 */
 					}
 
 					else {
-
+						/*
+						 * 
+						 */
 					}
 				} 
 			}

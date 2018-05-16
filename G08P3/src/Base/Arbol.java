@@ -44,23 +44,23 @@ public class Arbol {
 	/*
 	 * Functions
 	 */
-	private Arbol inicializarArbolCreciente(Arbol padre, boolean IFagregado, 
+	private Arbol inicializarArbolCreciente(Arbol padre, boolean funcionIf, 
 			int profundidad, int profundidadTotal) {	
 		Arbol a = new Arbol(padre, profundidad, profundidadTotal);
 
 		if (a.profundidad < a.profundidadTotal) {
 			Random r = new Random();
 			if (r.nextInt(2) == 0) {
-				a.nodo = new Funcion(IFagregado);
+				a.nodo = new Funcion(funcionIf);
 				a.esHoja = false;
-				a.hijos.add(a.inicializarArbolCreciente(a, IFagregado, profundidad + 1, profundidadTotal));
+				a.hijos.add(a.inicializarArbolCreciente(a, funcionIf, profundidad + 1, profundidadTotal));
 
 				if (a.nodo.getValor().equals("OR") || a.nodo.getValor().equals("AND"))
-					a.hijos.add(a.inicializarArbolCreciente(a, IFagregado, profundidad + 1, profundidadTotal));
+					a.hijos.add(a.inicializarArbolCreciente(a, funcionIf, profundidad + 1, profundidadTotal));
 				
 				else if (a.nodo.getValor().equals("IF")) {
-					a.hijos.add(a.inicializarArbolCreciente(a, IFagregado, profundidad + 1, profundidadTotal));
-					a.hijos.add(a.inicializarArbolCreciente(a, IFagregado, profundidad + 1, profundidadTotal));
+					a.hijos.add(a.inicializarArbolCreciente(a, funcionIf, profundidad + 1, profundidadTotal));
+					a.hijos.add(a.inicializarArbolCreciente(a, funcionIf, profundidad + 1, profundidadTotal));
 				}
 
 				for (int i = 0; i < a.hijos.size(); i++) {
@@ -199,6 +199,10 @@ public class Arbol {
 				funciones.add(this);
 		}
 	}
+	
+	/*
+	 * 
+	 */
 	public void cruzarNodos(Arbol puntoUno, Arbol puntoDos) {
 		for (int i = 0; i < puntoUno.getPadre().getHijos().size(); i++) {
 			for (int j = 0; j < puntoDos.getPadre().getHijos().size(); j++) {
