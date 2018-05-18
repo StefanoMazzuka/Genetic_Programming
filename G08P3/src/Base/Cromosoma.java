@@ -11,7 +11,7 @@ public class Cromosoma {
 	/**
 	 * Aptitud es fitness
 	 */
-	private double fitness;
+	private int fitness;
 	private double puntuacion;
 	private double puntuacionAcumulada;
 	private boolean funcionIf;
@@ -44,11 +44,19 @@ public class Cromosoma {
 		double aciertos = 0;
 		
 		for (int i = 0; i < casosDePrueba.length; i++){
-			aciertos += arbol.evalua(casosDePrueba[i], casosDePrueba[i][6]);
+			aciertos += calcularFitness(casosDePrueba[i], casosDePrueba[i][6]);
 		}
 		 return aciertos;
 	}
 
+	public int calcularFitness(boolean[] casosDePrueba, boolean salida) {
+		int fitness = 0;
+			if(arbol.calcularFitnessRecursivo(casosDePrueba)==salida)
+				fitness++;
+		return fitness;
+		
+	}
+	
 	
 	/**
 	 * GETTER AND SETTER
@@ -65,7 +73,7 @@ public class Cromosoma {
 		return fitness;
 	}
 
-	public void setFitness(double fitness) {
+	public void setFitness(int fitness) {
 		this.fitness = fitness;
 	}
 

@@ -18,10 +18,17 @@ public class Funcion extends Nodo {
 	
 	public Funcion(boolean IFagregado) {
 		Random r = new Random();
-		if (IFagregado)
-			this.valor = this.tiposFunciones[r.nextInt(this.tiposFunciones.length)];
-		else 
-			this.valor = this.tiposFunciones[r.nextInt(this.tiposFunciones.length) - 1];
+		int pos;
+		if (IFagregado) {
+			pos = r.nextInt(this.tiposFunciones.length);
+			this.valor = this.tiposFunciones[pos];
+		}
+			
+		else {
+			pos = r.nextInt(this.tiposFunciones.length - 1);
+			this.valor = this.tiposFunciones[pos];
+		}
+			
 		this.tipo = "FUNCION";
 		numArgumentosSegunValor(valor);
 	}

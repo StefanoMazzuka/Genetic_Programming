@@ -35,7 +35,8 @@ public class Arbol {
 		this.profundidad = profundidad;
 		this.profundidadTotal = profundidadTotal;
 		this.numNodos = 1;
-		if (padre.equals(null))
+		
+		if (padre == null)
 			this.esRaiz = true;
 		else
 			this.esRaiz = false;
@@ -110,7 +111,7 @@ public class Arbol {
 
 		return a;
 	}
-	public Arbol inicializarArbol(String inicializacion, boolean IFagregado, int profundidadTotal) {
+	public static Arbol inicializarArbol(String inicializacion, boolean IFagregado, int profundidadTotal) {
 		Arbol a = new Arbol(null, 0, profundidadTotal);
 		a.nodo = new Funcion(IFagregado);
 		a.esHoja = false;
@@ -154,39 +155,33 @@ public class Arbol {
 
 		return a;
 	}
-	private boolean fitnessArbol(boolean[] pruebas) {
+	public boolean calcularFitnessRecursivo(boolean[] casoDePrueba) {
 		boolean fitnessArbol = false;
 		
 		if (this.esHoja)
-			fitnessArbol = pruebas[this.nodo.getPosTerminal()];
+			fitnessArbol = casoDePrueba[this.nodo.getPosTerminal()];
 		else {
 			if (this.nodo.getValor().equals("AND"))
-				fitnessArbol = this.hijos.get(0).fitnessArbol(pruebas) && 
-				this.hijos.get(1).fitnessArbol(pruebas);
+				fitnessArbol = this.hijos.get(0).calcularFitnessRecursivo(casoDePrueba) && 
+				this.hijos.get(1).calcularFitnessRecursivo(casoDePrueba);
 			
 			else if (this.nodo.getValor().equals("NOT"))
-				fitnessArbol = !this.hijos.get(0).fitnessArbol(pruebas);
+				fitnessArbol = !this.hijos.get(0).calcularFitnessRecursivo(casoDePrueba);
 			
 			else if (this.nodo.getValor().equals("OR"))
-				fitnessArbol = this.hijos.get(0).fitnessArbol(pruebas) || 
-				this.hijos.get(1).fitnessArbol(pruebas);
+				fitnessArbol = this.hijos.get(0).calcularFitnessRecursivo(casoDePrueba) || 
+				this.hijos.get(1).calcularFitnessRecursivo(casoDePrueba);
 			
 			else if (this.nodo.getValor().equals("IF")) {
-				if (this.hijos.get(0).fitnessArbol(pruebas))
-					fitnessArbol = this.hijos.get(1).fitnessArbol(pruebas);
+				if (this.hijos.get(0).calcularFitnessRecursivo(casoDePrueba))
+					fitnessArbol = this.hijos.get(1).calcularFitnessRecursivo(casoDePrueba);
 				else
-					fitnessArbol = this.hijos.get(2).fitnessArbol(pruebas);
+					fitnessArbol = this.hijos.get(2).calcularFitnessRecursivo(casoDePrueba);
 			}
 		}		
 		return fitnessArbol;
 	}
-	public double fitness(boolean[] pruebas, boolean resultado) {
-		double fitness = 0.0;	
-		
-		if (fitnessArbol(pruebas) == resultado)
-			fitness++;	
-		return fitness;
-	}
+
 	public void getNodosFuncion(ArrayList<Arbol> funciones, ArrayList<Arbol> terminales) {
 		if (this.esHoja)
 			terminales.add(this);
@@ -200,9 +195,7 @@ public class Arbol {
 		}
 	}
 	
-	/*
-	 * 
-	 */
+
 	public void cruzarNodos(Arbol puntoUno, Arbol puntoDos) {
 		for (int i = 0; i < puntoUno.getPadre().getHijos().size(); i++) {
 			for (int j = 0; j < puntoDos.getPadre().getHijos().size(); j++) {
@@ -308,4 +301,11 @@ public class Arbol {
 	public void setEsRaiz(boolean esRaiz) {
 		this.esRaiz = esRaiz;
 	}
+	
+	/*EQUALS*/
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+
 }

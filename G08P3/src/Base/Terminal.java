@@ -33,4 +33,19 @@ public class Terminal extends Nodo {
 		t.numArgumentos = this.numArgumentos;
 		return t;
 	}
+	
+	public Nodo terminalRandom() {
+		
+		int i;
+		Random r = new Random();
+		
+		i = r.nextInt(6);
+		
+		while(tiposTerminales[i] == valor) {
+			i = r.nextInt(6);
+		}
+		
+		return new Terminal(tiposTerminales[i]);
+		
+	}
 }
