@@ -11,4 +11,9 @@ public class Leer {
 	private FileReader fr;
 	private BufferedReader br;
 	private String texto;
+	
+	
+	public void leerCasos() {
+		
+	}
 }

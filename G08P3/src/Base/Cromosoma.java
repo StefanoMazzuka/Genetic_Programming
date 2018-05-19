@@ -39,9 +39,9 @@ public class Cromosoma {
 		
 	}
 	
-	public double contarAciertos(){
+	public int contarAciertos(){
 		
-		double aciertos = 0;
+		int aciertos = 0;
 		
 		for (int i = 0; i < casosDePrueba.length; i++){
 			aciertos += calcularFitness(casosDePrueba[i], casosDePrueba[i][6]);
