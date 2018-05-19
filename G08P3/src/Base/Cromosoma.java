@@ -26,6 +26,10 @@ public class Cromosoma {
 	private double puntEscaladoSimple;
 	private double puntAcuEscaladoSimple;
 	
+	public Cromosoma() {
+		
+	}
+	
 	public Cromosoma(String inicializacion, boolean funcionIf, int alturaMaxima){
 		this.fitness = 0;
 		this.aciertos = 0;
@@ -36,7 +40,6 @@ public class Cromosoma {
 		this.nodosFuncion = new ArrayList<Arbol>();
 		this.nodosTerminales = new ArrayList<Arbol>();
 		this.arbol = arbol.inicializarArbol(inicializacion, funcionIf, profundidadTotal);
-		
 	}
 	
 	public int contarAciertos(){
