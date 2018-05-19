@@ -7,7 +7,7 @@ public abstract class Nodo {
 	protected String valor;
 	protected String tipo;
 	protected final String[] tiposFunciones = {"AND", "NOT", "OR", "IF"};
-	protected final String[] tiposTerminales = {"A0", "A1", "D0", "D1", "D2", "D3"};
+	protected final String[] tiposTerminales = {"A1", "A0", "D3", "D2", "D1", "D0"};
 	protected int numArgumentos;
 		
 	/*
