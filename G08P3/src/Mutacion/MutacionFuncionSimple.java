@@ -8,7 +8,10 @@ import Base.Funcion;
 import Base.Nodo;
 
 public class MutacionFuncionSimple extends Mutacion {
-
+	
+	
+	public  MutacionFuncionSimple() {}
+	
 	@Override
 	public Arbol mutar(Arbol arbol, ArrayList<Arbol> nodosTipoFuncion, ArrayList<Arbol> nodosTipoTerminal) {
 		nodosTipoFuncion.clear();

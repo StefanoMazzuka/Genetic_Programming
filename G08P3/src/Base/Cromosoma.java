@@ -20,7 +20,7 @@ public class Cromosoma {
 	private ArrayList<Arbol> nodosTerminales;
 	private boolean [][] casosDePrueba;
 	private int profundidadTotal;
-	private int aciertos;//evaluacion
+
 	private double puntEscaladoSimple;
 	private double puntAcuEscaladoSimple;
 	
@@ -30,7 +30,7 @@ public class Cromosoma {
 	
 	public Cromosoma(String inicializacion, boolean funcionIf, int alturaMaxima){
 		this.fitness = 0;
-		this.aciertos = 0;
+
 		this.puntuacion = 0;
 		this.puntuacionAcumulada = 0;
 		this.funcionIf = funcionIf;
@@ -83,7 +83,6 @@ public class Cromosoma {
 		c.setFuncionIf(this.funcionIf);
 		c.setInicializacion(this.inicializacion);
 		c.setProfundidadTotal(this.profundidadTotal);
-		c.setAciertos(this.aciertos);
 		c.setPuntEscaladoSimple(this.puntEscaladoSimple);
 		c.setPuntAcuEscaladoSimple(this.puntAcuEscaladoSimple);
 		
@@ -134,9 +133,7 @@ public class Cromosoma {
 	public void setProfundidadTotal(int profundidadTotal) {
 		this.profundidadTotal = profundidadTotal;
 	}
-	public void setAciertos(int aciertos) {
-		this.aciertos = aciertos;
-	}
+
 	public void setPuntEscaladoSimple(double puntEscaladoSimple) {
 		this.puntEscaladoSimple = puntEscaladoSimple;
 	}

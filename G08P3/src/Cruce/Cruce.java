@@ -9,6 +9,12 @@ public class Cruce {
 	private double probCruce;
 	private int profundidadTotal;
 	
+	public Cruce(double probCruce, int profundidadTotal) {
+		super();
+		this.probCruce = probCruce;
+		this.profundidadTotal = profundidadTotal;
+	}
+	
 	@SuppressWarnings("unused")
 	private void cualCruzaYCruzar (int lPoblacion,Cromosoma[] poblacion) {
 		
@@ -76,6 +82,9 @@ public class Cruce {
 		
 		padreUno.getArbol().getNodosArbol(padreUno.getNodosFuncion(), padreUno.getNodosTerminales());
 		padreDos.getArbol().getNodosArbol(padreDos.getNodosFuncion(), padreDos.getNodosTerminales());
+		
+		padreUno.setFitness(padreUno.contarAciertos());
+		padreDos.setFitness(padreDos.contarAciertos());
 	}
 	
 	/*

@@ -1,6 +1,14 @@
 package Base;
 
+import Cruce.Cruce;
 import GestionArchivos.Leer;
+import Mutacion.Mutacion;
+import Mutacion.MutacionFuncionSimple;
+import Mutacion.MutacionTerminalSimple;
+import Seleccion.Estocastico;
+import Seleccion.Ruleta;
+import Seleccion.Seleccion;
+import Seleccion.Torneo;
 
 public class AlgoritmoGenetico {
 	private Cromosoma[] poblacion;
@@ -10,11 +18,13 @@ public class AlgoritmoGenetico {
 	private double fitnessMejor;
 	private int posFitnessMejor;
 	private Cromosoma cromosomaMejor;
+	private int posCromosomaMejor;
 	private Cromosoma cromosomaMejorAbsoluto;
 	private double porcentajeCruce;
 	private double porcentajeMutacion;
 	private double porcentajeEli;
 	private boolean elitista;
+	
 	
 	private double media;
 	private double[] listaFitnessMejorAbsoluto;
@@ -59,6 +69,26 @@ public class AlgoritmoGenetico {
 		Leer leer = new Leer();
 		leer.leerCasos();
 	}
+	
+	public void ejecutar() {
+		Seleccion seleccion = new Torneo();
+		if (this.tipoSeleccion == 1) seleccion = new Ruleta();
+		else if (this.tipoSeleccion == 2) seleccion = new Estocastico();
+		
+		Cruce cruce = new Cruce(this.porcentajeCruce, profundidadMaxima);
+		
+		
+		Mutacion mutacion = new MutacionFuncionSimple();
+		if (this.tipoMutacion == 1) mutacion = new MutacionTerminalSimple();
+
+
+		
+		
+		for(int i = 0 ; i< numGeneraciones; i++) {
+			
+		}
+		
+	}
 
 	public void iniciarAg() {
 		poblacion = new Cromosoma[lPoblacion];
@@ -68,6 +98,11 @@ public class AlgoritmoGenetico {
 			poblacion[i]= new Cromosoma(tipoInicializacion,funcionIf,profundidadMaxima);
 			
 			poblacion[i].setFitness(poblacion[i].contarAciertos());
+			
+			if (poblacion[posCromosomaMejor].getFitness() < poblacion[i].getFitness()) {
+				posCromosomaMejor = i;
+				cromosomaMejorAbsoluto = poblacion.clone()[posCromosomaMejor].copy();
+			}
 		}
 		
 		//Elitismo aqui
@@ -133,12 +168,12 @@ public class AlgoritmoGenetico {
 			if(poblacion[i].getFitness() > fitnessMejor) {
 				posFitnessMejor = i;
 				fitnessMejor = poblacion[i].getFitness();
-				cromosomaMejor = poblacion[i]; //hay que hacer el copy
+				cromosomaMejor = poblacion[i].copy();
 			}
 		}
 		
 		if(fitnessMejor > cromosomaMejorAbsoluto.getFitness() ) {
-			cromosomaMejorAbsoluto = cromosomaMejor; //Habria que hacer copy
+			cromosomaMejorAbsoluto = cromosomaMejor.copy();
 		}
 	}
 }

@@ -8,7 +8,9 @@ import Base.Terminal;
 import Base.Nodo;
 
 public class MutacionTerminalSimple extends Mutacion {
-
+	
+	public MutacionTerminalSimple() {}
+	
 	@Override
 	public Arbol mutar(Arbol arbol, ArrayList<Arbol> nodosTipoFuncion, ArrayList<Arbol> nodosTipoTerminal) {
 		nodosTipoFuncion.clear();
