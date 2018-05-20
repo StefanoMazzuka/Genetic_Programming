@@ -307,41 +307,8 @@ public class Arbol {
 				funciones.add(this);
 		}
 	}
-	/*
-	 * Cruzamos dos arboles por un punto.
-	 * 
-	 * Parámetros de entrada:
-	 * puntoUno:	Punto de corte del primer arbol.
-	 * puntoDos:	Punto de corte del segundo arbol.
-	 * 
-	 * 1. Recorremos los hijos del padre uno.
-	 * 2. Recorremos los hijos del padre dos.
-	 * 3. Comprobamos que coincidan los dos hijos en los puntos asignados.
-	 * 	3.a TRUE
-	 * 		3.a.1 Comprobamos que 
-	 * 	3.b FALSE
-	 */
-	public void cruzarNodos(Arbol puntoUno, Arbol puntoDos) {
-		for (int i = 0; i < puntoUno.getPadre().getHijos().size(); i++) {
-			for (int j = 0; j < puntoDos.getPadre().getHijos().size(); j++) {
-				if (puntoUno.getPadre().getHijos().get(i).equals(puntoUno) &&
-				puntoDos.getPadre().getHijos().get(j).equals(puntoDos)) {
-					if (((this.profundidadTotal - puntoDos.getProfundidad()) + 
-							puntoUno.getPadre().getProfundidad() < this.profundidadTotal) &&
-							((this.profundidadTotal - puntoUno.getProfundidad()) + 
-									puntoDos.getPadre().getProfundidad() < this.profundidadTotal)) {
-						puntoUno.getPadre().getHijos().set(i, puntoDos);
-						puntoDos.getPadre().getHijos().set(j, puntoUno);
-						
-						Arbol a = puntoUno.getPadre();
-						puntoUno.setPadre(puntoDos.getPadre());
-						puntoDos.setPadre(a);
-						return;
-					}
-				}
-			}
-		}
-	}
+
+	
 	
 	private Arbol copyArbol(Arbol padre, Arbol raiz) {
 		Arbol a = new Arbol();
