@@ -41,8 +41,8 @@ public class Cruce {
 		padreDos.getNodosTerminales().clear();
 		padreUno.getNodosTerminales().clear();
 		
-		padreUno.getArbol().getNodosFuncion(padreUno.getNodosFuncion(), padreUno.getNodosTerminales());
-		padreDos.getArbol().getNodosFuncion(padreDos.getNodosFuncion(), padreDos.getNodosTerminales());
+		padreUno.getArbol().getNodosArbol(padreUno.getNodosFuncion(), padreUno.getNodosTerminales());
+		padreDos.getArbol().getNodosArbol(padreDos.getNodosFuncion(), padreDos.getNodosTerminales());
 		
 		Random r = new Random();
 		double probAux = r.nextDouble();
@@ -74,8 +74,8 @@ public class Cruce {
 			}
 		}
 		
-		padreUno.getArbol().getNodosFuncion(padreUno.getNodosFuncion(), padreUno.getNodosTerminales());
-		padreDos.getArbol().getNodosFuncion(padreDos.getNodosFuncion(), padreDos.getNodosTerminales());
+		padreUno.getArbol().getNodosArbol(padreUno.getNodosFuncion(), padreUno.getNodosTerminales());
+		padreDos.getArbol().getNodosArbol(padreDos.getNodosFuncion(), padreDos.getNodosTerminales());
 	}
 	
 	/*

@@ -6,7 +6,6 @@ import java.util.Random;
 /*
  * Falta:
  * cruce();
- * equals();
  * toString();
  */
 
@@ -33,7 +32,6 @@ public class Arbol {
 		this.esHoja = false;
 		this.esRaiz = true;
 	}
-	
 	/*
 	 * Constructora con parametros de entrada:
 	 * Arbol, profundidad y profundidad total.
@@ -120,7 +118,6 @@ public class Arbol {
 
 		return a;
 	}
-	
 	/*
 	 * Inicializamos por metodo COMPLETO el arbol.
 	 * 
@@ -294,13 +291,30 @@ public class Arbol {
 	}
 	/*
 	 * Calculamos los nodos funcion.
+	 * 
+	 * Parámetros de entrada:
+	 * funciones:	Un arbol vacío que rellenaremos con las funciones que tenga nuestro arbol.
+	 * terminales:	Un arbol vacío que rellenaremos con los terminales que tenga nuestro arbol.
+	 * 
+	 * Lógica:
+	 * 1. Comprobamos si nuestro arbol es hoja.
+	 * 	1.a TRUE:
+	 * 		1.a.1 Agregamos el terminal a la lista de terminales.
+	 * 	1.b FALSE:
+	 * 		1.b.1 Recorremos los hijos que tenga nuestro nodo. Si es un OR tendrá 2, si es un IF tendrá 3, etc.
+	 * 		1.b.2 Por cada hijo, extraemos las funciones y terminales que tenga llamando al método getNodosArbol recursivamente.
+	 * 		1.b.3 Al terminar de recorrer los hijos, comprobamos si nuestro arbol es una raiz.
+	 * 			1.b.3.a TRUE:
+	 * 				Agregamos este nodo (función) al arbol de funciones.
+	 * 			1.b.3.b FALSE:
+	 * 				Salimos de la recursividad hacia un nivel superior.
 	 */
-	public void getNodosFuncion(ArrayList<Arbol> funciones, ArrayList<Arbol> terminales) {
+	public void getNodosArbol(ArrayList<Arbol> funciones, ArrayList<Arbol> terminales) {
 		if (this.esHoja)
 			terminales.add(this);
 		else {
 			for (int i = 0; i < this.hijos.size(); i++) {
-				this.hijos.get(i).getNodosFuncion(funciones, terminales);
+				this.hijos.get(i).getNodosArbol(funciones, terminales);
 			}
 			
 			if (!this.esRaiz)
@@ -308,8 +322,6 @@ public class Arbol {
 		}
 	}
 
-	
-	
 	private Arbol copyArbol(Arbol padre, Arbol raiz) {
 		Arbol a = new Arbol();
 		a.nodo = this.nodo.copy();

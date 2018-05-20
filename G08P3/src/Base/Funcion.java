@@ -60,4 +60,13 @@ public class Funcion extends Nodo {
 		f.numArgumentos = this.numArgumentos;
 		return f;
 	}
+	public Nodo funcionRandom() {
+		
+		if (this.valor == "AND")
+			return new Funcion("OR");
+		else if (this.valor == "OR")
+			return new Funcion("AND");
+		
+		return this;
+	}
 }
