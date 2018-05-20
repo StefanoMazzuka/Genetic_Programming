@@ -24,18 +24,12 @@ public class AlgoritmoGenetico {
 	private double porcentajeMutacion;
 	private double porcentajeEli;
 	private boolean elitista;
-	
-	
 	private double media;
 	private double[] listaFitnessMejorAbsoluto;
 	private double[] listaFitnessMejor;
 	private double[] listaMedias;
-	
 	private int profundidadMaxima;
 	boolean funcionIf;
-
-	
-
 	private int numElegidosEli;
 	private Cromosoma[] poblacionEli;
 	private int tipoSeleccion;	
@@ -56,9 +50,6 @@ public class AlgoritmoGenetico {
 		this.profundidadMaxima = profundidadMaxima;
 		this.elitista = elitista;
 		this.funcionIf = funcionIf;
-		
-		Leer leer = new Leer();
-		leer.leerCasos();
 	}
 	
 	public void ejecutar() {
@@ -84,10 +75,11 @@ public class AlgoritmoGenetico {
 
 	public void iniciarAg() {
 		poblacion = new Cromosoma[lPoblacion];
-		
+		Leer leer = new Leer();
+		boolean[][] casos = leer.leerCasos();
 		for(int i = 0; i < lPoblacion; i++  ) {
-			poblacion[i]= new Cromosoma(tipoInicializacion,funcionIf,profundidadMaxima);
-			poblacion[i]= new Cromosoma(tipoInicializacion,funcionIf,profundidadMaxima);
+			poblacion[i]= new Cromosoma(tipoInicializacion, funcionIf, profundidadMaxima, casos);
+			poblacion[i]= new Cromosoma(tipoInicializacion, funcionIf, profundidadMaxima, casos);
 			
 			poblacion[i].setFitness(poblacion[i].contarAciertos());
 			

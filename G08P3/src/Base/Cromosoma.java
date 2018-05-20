@@ -28,9 +28,8 @@ public class Cromosoma {
 		
 	}
 	
-	public Cromosoma(String inicializacion, boolean funcionIf, int alturaMaxima){
+	public Cromosoma(String inicializacion, boolean funcionIf, int alturaMaxima, boolean[][] casosDePrueba){
 		this.fitness = 0;
-
 		this.puntuacion = 0;
 		this.puntuacionAcumulada = 0;
 		this.funcionIf = funcionIf;
@@ -38,6 +37,7 @@ public class Cromosoma {
 		this.nodosFuncion = new ArrayList<Arbol>();
 		this.nodosTerminales = new ArrayList<Arbol>();
 		this.arbol = arbol.inicializarArbol(inicializacion, funcionIf, profundidadTotal);
+		this.casosDePrueba = casosDePrueba;
 	}
 	
 	public int contarAciertos(){

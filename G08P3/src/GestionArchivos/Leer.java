@@ -4,21 +4,46 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class Leer {
-	private String rutaUsuario = System.getProperty("user.dir");
-	private String separador = File.separator;
-	private File archivo;
-	private FileReader fr;
-	private BufferedReader br;
-	private String texto;
+import javax.swing.JOptionPane;
 
-	public void leerCasos() {
+public class Leer {
+
+	boolean IO_MUX[][];
+	
+	public boolean[][] leerCasos() {
+
+		FileReader fr;
+		BufferedReader br;
 		String userPath = System.getProperty("user.dir");
-		String separator = File.separator;
-		String folderPath = userPath + separator + "Files";
-		File folder = new File(folderPath);
-		String[] files = folder.list();
-		
-		
+		String folderPath = userPath + File.separator + "src" + File.separator + "Resources" + File.separator + "IO_MUX.txt";
+		File archivo = new File(folderPath);
+
+		try {
+			fr = new FileReader(archivo);
+			br = new BufferedReader(fr);
+
+			int numFilas = Integer.parseInt(br.readLine());
+
+			IO_MUX = new boolean[numFilas][7];
+			String linea;
+			String valores[];
+			int fila = 0;
+			while((linea = br.readLine()) != null) {
+				valores = linea.split(",");
+				for (int i = 0; i < 7; i++) {
+					if (valores[i].equals("1"))
+						IO_MUX[fila][i] = true;
+					else 
+						IO_MUX[fila][i] = false;
+				}
+				fila++;
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, e);
+		}
+
+		return IO_MUX;
 	}
 }
