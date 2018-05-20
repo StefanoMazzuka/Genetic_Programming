@@ -81,11 +81,12 @@ public class AlgoritmoGenetico {
 		Mutacion mutacion = new MutacionFuncionSimple();
 		if (this.tipoMutacion == 1) mutacion = new MutacionTerminalSimple();
 
-
 		
+		iniciarAg();
+		calcularFitnessPoblacion();
 		
 		for(int i = 0 ; i< numGeneraciones; i++) {
-			
+			poblacion = seleccion.ejecutar(poblacion, i);
 		}
 		
 	}
