@@ -43,28 +43,19 @@ public class AlgoritmoGenetico {
 	private int tipoMutacion;
 	private String tipoInicializacion;//cambiar a int
 	
-	public AlgoritmoGenetico(Cromosoma[] poblacion, int lPoblacion, int numGeneraciones, double fitnessMejorAbsoluto,
-			double fitnessMejor, Cromosoma cromosomaMejor, Cromosoma cromosomaMejorAbsoluto, double porcentajeCruce,
-			double porcentajeMutacion, double porcentajeEli, boolean elitista, double media, int profundidadMaxima,
-			boolean funcionIf, int tipoSeleccion, int tipoCruce, int tipoMutacion) {
+	public AlgoritmoGenetico(int tipoSeleccion, int tipoMutacion, String tipoInicializacion, int lPoblacion, int numGeneraciones,
+			double porcentajeCruce, double porcentajeMutacion, int profundidadMaxima, boolean elitista, boolean funcionIf) {
 		super();
-		this.poblacion = poblacion;
+		this.tipoSeleccion = tipoSeleccion;
+		this.tipoMutacion = tipoMutacion;
+		this.tipoInicializacion = tipoInicializacion;
 		this.lPoblacion = lPoblacion;
 		this.numGeneraciones = numGeneraciones;
-		this.fitnessMejorAbsoluto = fitnessMejorAbsoluto;
-		this.fitnessMejor = fitnessMejor;
-		cromosomaMejor = cromosomaMejor;
-		cromosomaMejorAbsoluto = cromosomaMejorAbsoluto;
 		this.porcentajeCruce = porcentajeCruce;
 		this.porcentajeMutacion = porcentajeMutacion;
-		this.porcentajeEli = porcentajeEli;
-		this.elitista = elitista;
-		this.media = media;
 		this.profundidadMaxima = profundidadMaxima;
+		this.elitista = elitista;
 		this.funcionIf = funcionIf;
-		this.tipoSeleccion = tipoSeleccion;
-		this.tipoCruce = tipoCruce;
-		this.tipoMutacion = tipoMutacion;
 		
 		Leer leer = new Leer();
 		leer.leerCasos();
@@ -76,19 +67,19 @@ public class AlgoritmoGenetico {
 		else if (this.tipoSeleccion == 2) seleccion = new Estocastico();
 		
 		Cruce cruce = new Cruce(this.porcentajeCruce, profundidadMaxima);
-		
-		
-		Mutacion mutacion = new MutacionFuncionSimple();
-		if (this.tipoMutacion == 1) mutacion = new MutacionTerminalSimple();
-
-		
+			
+		Mutacion mutacion = new MutacionFuncionSimple(porcentajeMutacion);
+		if (this.tipoMutacion == 1) mutacion = new MutacionTerminalSimple(porcentajeMutacion);
+	
 		iniciarAg();
 		calcularFitnessPoblacion();
 		
 		for(int i = 0 ; i< numGeneraciones; i++) {
-			poblacion = seleccion.ejecutar(poblacion, i);
-		}
-		
+			poblacion = seleccion.ejecutar(poblacion, numGeneraciones);		
+			cruce.cualCruzaYCruzar(poblacion);
+			mutacion.cualMutaYMutar(poblacion);
+			System.out.println(i);
+		}		
 	}
 
 	public void iniciarAg() {

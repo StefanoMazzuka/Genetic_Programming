@@ -10,22 +10,22 @@ public class Estocastico extends Seleccion {
 	private double[] puntuacion;
 	private double[] fitnessDesplazado;
 	private double fitnessTotalPoblacion;
-	ArrayList<Cromosoma> poblacion;
+	Cromosoma[] poblacion;
 
 	@Override
-	public ArrayList<Cromosoma> ejecutar(ArrayList<Cromosoma> poblacion, int numGeneraciones) {
+	public Cromosoma[] ejecutar(Cromosoma[] poblacion, int numGeneraciones) {
 		// TODO Auto-generated method stub
 		this.poblacion = poblacion;
-		this.puntuacion = new double[this.poblacion.size()];
-		this.fitnessDesplazado = new double[this.poblacion.size()];
+		this.puntuacion = new double[this.poblacion.length];
+		this.fitnessDesplazado = new double[this.poblacion.length];
 		this.fitnessTotalPoblacion = 0;
 		
-		ArrayList<Cromosoma> pobSeleccionada = new ArrayList<Cromosoma>();
+		Cromosoma[] pobSeleccionada = new Cromosoma[this.poblacion.length];
 		
-		double N = this.poblacion.size();
+		double N = this.poblacion.length;
 		double distMarcas = 1 / N;
 		double primeraMarca = 0.0;
-		double[] arrayDeMarcas = new double[this.poblacion.size()];
+		double[] arrayDeMarcas = new double[this.poblacion.length];
 		double probAcumulada;
 		
 		Random r = new Random();
@@ -33,15 +33,15 @@ public class Estocastico extends Seleccion {
 		/*
 		 * Calculamos el fitnes total
 		 */
-		for (int i = 0; i < this.poblacion.size(); i++) {
-			this.fitnessTotalPoblacion += this.poblacion.get(i).getFitness();
+		for (int i = 0; i < this.poblacion.length; i++) {
+			this.fitnessTotalPoblacion += this.poblacion[i].getFitness();
 		}
 		
 		/*
 		 * Calculamos el fitness de cada idividuo entre el fitness total
 		 */
-		for (int i = 0; i < this.poblacion.size(); i++) {
-			this.puntuacion[i] = this.poblacion.get(i).getFitness() / this.fitnessTotalPoblacion;
+		for (int i = 0; i < this.poblacion.length; i++) {
+			this.puntuacion[i] = this.poblacion[i].getFitness() / this.fitnessTotalPoblacion;
 		}
 		
 		/*
@@ -53,7 +53,7 @@ public class Estocastico extends Seleccion {
 		/*
 		 * Calculamos el resto de marcas
 		 */
-		for (int i = 1; i < this.poblacion.size(); i++) {
+		for (int i = 1; i < this.poblacion.length; i++) {
 			arrayDeMarcas[i] = arrayDeMarcas[i-1] + distMarcas;
 		}
 		
@@ -65,11 +65,11 @@ public class Estocastico extends Seleccion {
 		for (int j = 0; j < arrayDeMarcas.length; j++) {
 			probAcumulada = this.puntuacion[0];
 			int k = 1;
-			while (k < this.poblacion.size() && arrayDeMarcas[j] > probAcumulada) {
+			while (k < this.poblacion.length && arrayDeMarcas[j] > probAcumulada) {
 				probAcumulada += this.puntuacion[k];
 				k++;
 			}
-			pobSeleccionada.add(this.poblacion.get(k - 1).copy());
+			pobSeleccionada[j] = this.poblacion[k - 1].copy();
 		}
 		
 		return pobSeleccionada;

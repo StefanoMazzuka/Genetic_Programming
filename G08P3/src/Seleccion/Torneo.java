@@ -8,17 +8,17 @@ import Base.Cromosoma;
 public class Torneo extends Seleccion {
 
 	private double[] fitnessDesplazado;
-	ArrayList<Cromosoma> poblacion;
-	ArrayList<Cromosoma> poblacionTrio;
-	ArrayList<Cromosoma> poblacionSeleccionada;
+	Cromosoma[] poblacion;
+	Cromosoma[] poblacionTrio;
+	Cromosoma[] poblacionSeleccionada;
 	
 	@Override
-	public ArrayList<Cromosoma> ejecutar(ArrayList<Cromosoma> poblacion, int numGeneraciones) {
+	public Cromosoma[] ejecutar(Cromosoma[] poblacion, int numGeneraciones) {
 		// TODO Auto-generated method stub
 		this.poblacion = poblacion;
-		this.poblacionTrio = new ArrayList<Cromosoma>();
-		this.poblacionSeleccionada = new ArrayList<Cromosoma>();
-		this.fitnessDesplazado = new double[this.poblacion.size()];
+		this.poblacionTrio = new Cromosoma[3];
+		this.poblacionSeleccionada = new Cromosoma[this.poblacion.length];
+		this.fitnessDesplazado = new double[this.poblacion.length];
 		
 		double mejor = 0.0;
 		Cromosoma mejorCromosoma = null;
@@ -29,14 +29,14 @@ public class Torneo extends Seleccion {
 		 * Recorremos el tamaño de la poblacion. Añadimos al pobTrio el trio de cromosomas y comprobamos
 		 * cual es el mejor de esos tres para añadirlo a la pobSeleccionada. 
 		 */
-		for (int j = 0; j < this.poblacion.size(); j++) {	
+		for (int j = 0; j < this.poblacion.length; j++) {	
 			/*
 			 * Elegimos el trio al azar
 			 */
 			mejor = Double.MAX_VALUE;
             for (int i = 0; i < 3; i++) {
-                cualToca = r.nextInt(this.poblacion.size()) ;
-                this.poblacionTrio.add(this.poblacion.get(cualToca).copy());
+                cualToca = r.nextInt(this.poblacion.length) ;
+                this.poblacionTrio[i] = this.poblacion[cualToca].copy();
 
                 /*
                  * Comprobamos cual es el mejor elemento del trio
@@ -44,23 +44,24 @@ public class Torneo extends Seleccion {
                 //desplazamiento(pobTrio);
 
                 // .Fitness??
-                if (mejor > this.poblacionTrio.get(i).getFitness()) {
-                    mejor = this.poblacionTrio.get(i).getFitness();
-                    mejorCromosoma = this.poblacionTrio.get(i).copy();
+                if (mejor > this.poblacionTrio[i].getFitness()) {
+                    mejor = this.poblacionTrio[i].getFitness();
+                    mejorCromosoma = this.poblacionTrio[i].copy();
                 }
             }
 			
 			/*
 			 * Añadimos el cromosoma a la poblacion seleccionada
 			 */
-    		this.poblacionSeleccionada.add(mejorCromosoma);
+    		this.poblacionSeleccionada[j] = mejorCromosoma;
 			
 			/*
 			 * Limpiamos el array de pobTrio
 			 */
-			for (int i = 0; i < 3; i++) {
-				this.poblacionTrio.remove(0);		
-			}
+    		this.poblacionTrio = new Cromosoma[3];
+//			for (int i = 0; i < 3; i++) {
+//				this.poblacionTrio.remove(0);		
+//			}
 			
 			/*
 			 * Seteamos la poblacion orginal

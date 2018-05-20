@@ -4,14 +4,29 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Base.Arbol;
+import Base.Cromosoma;
 import Base.Funcion;
 import Base.Nodo;
 
 public class MutacionFuncionSimple extends Mutacion {
 	
+	public  MutacionFuncionSimple(double porcentajeMutacion) {
+		this.porcentajeMutacion = porcentajeMutacion;
+	}
 	
-	public  MutacionFuncionSimple() {}
-	
+	@Override
+	public void cualMutaYMutar(Cromosoma[] poblacion) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < poblacion.length; i++) {
+			Random r = new Random();
+			double porcentaje = r.nextDouble();
+			
+			if(porcentaje < this.porcentajeMutacion) {
+				poblacion[i].setArbol(mutar(poblacion[i].getArbol(), 
+						poblacion[i].getNodosFuncion(), poblacion[i].getNodosTerminales()));
+			}
+		}
+	}
 	@Override
 	public Arbol mutar(Arbol arbol, ArrayList<Arbol> nodosTipoFuncion, ArrayList<Arbol> nodosTipoTerminal) {
 		nodosTipoFuncion.clear();

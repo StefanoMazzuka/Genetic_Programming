@@ -1,7 +1,5 @@
 package Base;
 
-import java.util.Arrays;
-
 public abstract class Nodo {
 
 	protected String valor;

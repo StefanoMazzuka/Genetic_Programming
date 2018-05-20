@@ -198,7 +198,7 @@ public class Arbol {
 		a.esHoja = false;
 		a.esRaiz = true;
 
-		if (inicializacion.equals("CRECIENTE")) {
+		if (inicializacion.equals("Creciente")) {
 			a.hijos.add(a.inicializarArbolCreciente(a, IFagregado, 1, profundidadTotal));
 
 			if (a.nodo.getValor().equals("OR") || a.nodo.getValor().equals("AND"))
@@ -214,7 +214,7 @@ public class Arbol {
 			}
 		}
 		
-		else if (inicializacion.equals("COMPLETO")) {
+		else if (inicializacion.equals("Completo")) {
 			a.hijos.add(a.inicializarArbolCompleto(a, IFagregado, 1, profundidadTotal));
 
 			if (a.nodo.getValor().equals("OR") || a.nodo.getValor().equals("AND"))

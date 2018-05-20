@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.AlgorithmConstraints;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -21,24 +22,22 @@ import javax.swing.SwingConstants;
 
 import org.math.plot.*;
 
+import Base.AlgoritmoGenetico;
+
 public class Menu extends JFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int tamañoPoblacion;
-	private int numeroGeneraciones;
-	private double porcentajeCruce;
-	private double porcentajeMutacion;
-	private int profundidadArbol;
+
 	private double[] generacion;
 	private double[] mejoresFitnessAbsolutos;
 	private double[] mejoresFitness;
 	private double[] listaMedias;
-	private String[] selecciones = { "Torneos", "Ruleta", "Estocastico universal"};
-	private String[] mutaciones = {"Funcional", "Terminal", "Arbol"};
-	private String[] inicializaciones = {"Creciente", "Completa"};
+	private String[] selecciones = {"Torneos", "Ruleta", "Estocastico universal"};
+	private String[] mutaciones = {"Funcional", "Terminal"};
+	private String[] inicializaciones = {"Creciente", "Completo"};
 
 	public Menu() {
 		JComboBox<String> seleccion = new JComboBox<String>(selecciones);
@@ -55,7 +54,7 @@ public class Menu extends JFrame {
 		JButton ok = new JButton("Ok");
 		JLabel fitMejor = new JLabel("Fitness Mejor:");
 		JLabel genMejor = new JLabel("Gen Mejor:");
-		
+
 		setSize(new Dimension(700, 500));
 		setLocationRelativeTo(null); 
 		setTitle("Genetic Programming"); 
@@ -96,24 +95,24 @@ public class Menu extends JFrame {
 		JPanel resultados = new JPanel(new GridLayout(2, 1));
 		resultados.add(fitMejor);
 		resultados.add(genMejor);
-		
+
 		JPanel graficaPanel = new JPanel();
 		graficaPanel.setLayout(new BorderLayout());
 		graficaPanel.add(grafica, BorderLayout.CENTER);
 		graficaPanel.add(resultados, BorderLayout.SOUTH);
-		
+
 		JPanel programa = new JPanel();
 		programa.setLayout(new BorderLayout());
 		programa.add(menuPanel, BorderLayout.WEST);
 		programa.add(graficaPanel, BorderLayout.CENTER);
 		// Fin panel programa
-		
+
 		add(programa);
-		
+
 		ok.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				
+
 				if (tamPob.getText().equals("") || numGen.getText().equals("") || porCruce.getText().equals("") ||
 						porMuta.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Por favor introduzca todos los datos.");
@@ -121,23 +120,22 @@ public class Menu extends JFrame {
 
 				else {
 
-					tamañoPoblacion = Integer.parseInt(tamPob.getText());
-					numeroGeneraciones = Integer.parseInt(numGen.getText());
-					porcentajeCruce = Double.parseDouble(porCruce.getText());
-					porcentajeMutacion = Double.parseDouble(porMuta.getText());
-					profundidadArbol = Integer.parseInt(profundidad.getText());
+					int tipoSeleccion = seleccion.getSelectedIndex();
+					int tipoMutacion = mutacion.getSelectedIndex();
+					String tipoInicializacion = (String) inicializacion.getSelectedItem();
+					int lPoblacion = Integer.parseInt(tamPob.getText());
+					int numGeneraciones = Integer.parseInt(numGen.getText());
+					double porcentajeCruce = Double.parseDouble(porCruce.getText());
+					double porcentajeMutacion = Double.parseDouble(porMuta.getText());
+					int profundidadMaxima = Integer.parseInt(profundidad.getText());
+					boolean elitista = eli.isSelected();
+					boolean funcionIf = IF.isSelected();
 
-					if (eli.isSelected() == true) {
-						/*
-						 * 
-						 */
-					}
+					AlgoritmoGenetico ag;
 
-					else {
-						/*
-						 * 
-						 */
-					}
+					ag = new AlgoritmoGenetico(tipoSeleccion, tipoMutacion, tipoInicializacion, lPoblacion, numGeneraciones,
+							porcentajeCruce, porcentajeMutacion, profundidadMaxima, elitista, funcionIf);
+					ag.ejecutar();
 				} 
 			}
 		});	

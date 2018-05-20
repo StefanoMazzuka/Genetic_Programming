@@ -6,27 +6,27 @@ import Base.Arbol;
 import Base.Cromosoma;
 
 public class Cruce {
-	private double probCruce;
+	private double porcentajeCruce;
 	private int profundidadTotal;
 	
 	public Cruce(double probCruce, int profundidadTotal) {
 		super();
-		this.probCruce = probCruce;
+		this.porcentajeCruce = probCruce;
 		this.profundidadTotal = profundidadTotal;
 	}
 	
 	@SuppressWarnings("unused")
-	private void cualCruzaYCruzar (int lPoblacion,Cromosoma[] poblacion) {
+	public void cualCruzaYCruzar(Cromosoma[] poblacion) {
 		
-		int[] seleccionados = new int[lPoblacion];
+		int[] seleccionados = new int[poblacion.length];
 		int numSeleccionados = 0;
 		double probAux;
 		Random r = new Random();
 		
-		for(int i = 0; i < lPoblacion; i++) {
+		for(int i = 0; i < poblacion.length; i++) {
 			probAux = r.nextDouble();
 			
-			if(probAux < probCruce) {
+			if(probAux < porcentajeCruce) {
 				seleccionados[numSeleccionados]=i;
 				numSeleccionados++;
 			}
@@ -37,11 +37,11 @@ public class Cruce {
 		}
 		
 		for(int i = 0; i < numSeleccionados; i+=2) {
-			cruzar(poblacion[seleccionados[i]],poblacion[seleccionados[i+1]], probCruce);
+			cruzar(poblacion[seleccionados[i]],poblacion[seleccionados[i+1]], porcentajeCruce);
 		}
 	}
 	
-	public void cruzar(Cromosoma padreUno, Cromosoma padreDos, double probCruce){
+	private void cruzar(Cromosoma padreUno, Cromosoma padreDos, double probCruce){
 		padreUno.getNodosFuncion().clear();
 		padreDos.getNodosFuncion().clear();
 		padreDos.getNodosTerminales().clear();
@@ -101,7 +101,7 @@ public class Cruce {
 	 * 		3.a.1 Comprobamos que 
 	 * 	3.b FALSE
 	 */
-	public void cruzarNodos(Arbol puntoUno, Arbol puntoDos) {
+	private void cruzarNodos(Arbol puntoUno, Arbol puntoDos) {
 		for (int i = 0; i < puntoUno.getPadre().getHijos().size(); i++) {
 			for (int j = 0; j < puntoDos.getPadre().getHijos().size(); j++) {
 				if (puntoUno.getPadre().getHijos().get(i).equals(puntoUno) &&
