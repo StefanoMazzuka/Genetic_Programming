@@ -89,16 +89,6 @@ public class Cruce {
 	/*
 	 * Cruzamos dos arboles por un punto.
 	 * 
-	 * Parámetros de entrada:
-	 * puntoUno:	Punto de corte del primer arbol.
-	 * puntoDos:	Punto de corte del segundo arbol.
-	 * 
-	 * 1. Recorremos los hijos del padre uno.
-	 * 2. Recorremos los hijos del padre dos.
-	 * 3. Comprobamos que coincidan los dos hijos en los puntos asignados.
-	 * 	3.a TRUE
-	 * 		3.a.1 Comprobamos que 
-	 * 	3.b FALSE
 	 */
 	private void cruzarNodos(Arbol puntoUno, Arbol puntoDos) {
 		for (int i = 0; i < puntoUno.getPadre().getHijos().size(); i++) {

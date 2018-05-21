@@ -2,12 +2,6 @@ package Base;
 
 import java.util.Random;
 
-/*
- * Falta:
- * toString()
- * getFuncionAleatoria()
- */
-
 public class Funcion extends Nodo {
 
 	public Funcion() {

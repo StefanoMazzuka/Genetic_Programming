@@ -2,12 +2,6 @@ package Base;
 
 import java.util.Random;
 
-/*
- * Falta:
- * toString()
- * getTerminalAleatorio()
- */
-
 public class Terminal extends Nodo {
 	
 	public Terminal() {
@@ -33,7 +27,6 @@ public class Terminal extends Nodo {
 		t.numArgumentos = this.numArgumentos;
 		return t;
 	}
-	
 	public Nodo terminalRandom() {
 		
 		int i;

@@ -1,16 +1,9 @@
 package Base;
 
 import java.util.ArrayList;
-/**
- *cruce?
- *mutacionTerminalSimple
- *
- */
+
 public class Cromosoma {
 	private Arbol arbol;
-	/**
-	 * Aptitud es fitness
-	 */
 	private int fitness;
 	private double puntuacion;
 	private double puntuacionAcumulada;
@@ -24,10 +17,7 @@ public class Cromosoma {
 	private double puntEscaladoSimple;
 	private double puntAcuEscaladoSimple;
 	
-	public Cromosoma() {
-		
-	}
-	
+	public Cromosoma() {}
 	public Cromosoma(String inicializacion, boolean funcionIf, int alturaMaxima, boolean[][] casosDePrueba){
 		this.fitness = 0;
 		this.puntuacion = 0;
@@ -49,7 +39,6 @@ public class Cromosoma {
 		}
 		 return aciertos;
 	}
-
 	public int calcularFitness(boolean[] casosDePrueba, boolean salida) {
 		int fitness = 0;
 			if(arbol.calcularFitnessRecursivo(casosDePrueba)==salida)
@@ -88,7 +77,7 @@ public class Cromosoma {
 		
 		return c;
 	}
-	/**
+	/*
 	 * GETTER AND SETTER
 	 */
 	public Arbol getArbol() {

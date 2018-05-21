@@ -30,7 +30,7 @@ public class AlgoritmoGenetico {
 	private Cromosoma[] poblacionEli;
 	private int tipoSeleccion;	
 	private int tipoMutacion;
-	private String tipoInicializacion;//cambiar a int
+	private String tipoInicializacion;
 
 	public AlgoritmoGenetico(int tipoSeleccion, int tipoMutacion, String tipoInicializacion, int lPoblacion, int numGeneraciones,
 			double porcentajeCruce, double porcentajeMutacion, int profundidadMaxima, boolean elitista, boolean funcionIf) {

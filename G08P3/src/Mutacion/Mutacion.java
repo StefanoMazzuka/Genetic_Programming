@@ -10,9 +10,6 @@ public abstract class Mutacion {
 	
 	/*
 	 * Según un porcentaje de mutación, elegimos si mutar el cromosoma.
-	 * 
-	 * Parámetros de entrada:
-	 * poblacion:	Array de Cromosomas.
 	 */
 	public abstract void cualMutaYMutar(Cromosoma[] poblacion);
 	public abstract Arbol mutar(Arbol arbol, ArrayList<Arbol> nodosTipoFuncion, ArrayList<Arbol> nodosTipoTerminal);	
