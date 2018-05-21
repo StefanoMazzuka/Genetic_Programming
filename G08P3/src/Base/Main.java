@@ -1,7 +1,6 @@
 package Base;
 
 import GUI.Menu;
-import GestionArchivos.Leer;
 
 public class Main {
 

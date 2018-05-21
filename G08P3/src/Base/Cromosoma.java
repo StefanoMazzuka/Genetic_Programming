@@ -36,7 +36,7 @@ public class Cromosoma {
 		this.profundidadTotal = alturaMaxima;
 		this.nodosFuncion = new ArrayList<Arbol>();
 		this.nodosTerminales = new ArrayList<Arbol>();
-		this.arbol = arbol.inicializarArbol(inicializacion, funcionIf, profundidadTotal);
+		this.arbol = Arbol.inicializarArbol(inicializacion, funcionIf, profundidadTotal);
 		this.casosDePrueba = casosDePrueba;
 	}
 	
@@ -97,7 +97,7 @@ public class Cromosoma {
 	public void setArbol(Arbol arbol) {
 		this.arbol = arbol;
 	}
-	public double getFitness() {
+	public int getFitness() {
 		return fitness;
 	}
 	public void setFitness(int fitness) {
@@ -133,7 +133,6 @@ public class Cromosoma {
 	public void setProfundidadTotal(int profundidadTotal) {
 		this.profundidadTotal = profundidadTotal;
 	}
-
 	public void setPuntEscaladoSimple(double puntEscaladoSimple) {
 		this.puntEscaladoSimple = puntEscaladoSimple;
 	}

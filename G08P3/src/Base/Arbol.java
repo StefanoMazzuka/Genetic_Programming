@@ -411,5 +411,19 @@ public class Arbol {
 	public boolean equals(Object obj) {
 		return super.equals(obj);
 	}
-
+	public String toString() {
+		String cadena = "";
+		
+		cadena = "" + this.nodo.getValor();
+		
+		if(!this.esHoja) {
+			cadena += "(" + this.hijos.get(0).toString();
+			for (int i = 1; i < this.hijos.size(); i++) {
+				cadena += ", " + this.hijos.get(i).toString();
+			}
+			cadena += ")";
+		}
+		
+		return cadena;
+	}
 }

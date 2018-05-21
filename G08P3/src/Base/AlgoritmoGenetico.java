@@ -14,17 +14,13 @@ public class AlgoritmoGenetico {
 	private Cromosoma[] poblacion;
 	private int lPoblacion;
 	private int numGeneraciones;
-	private double fitnessMejorAbsoluto;
-	private double fitnessMejor;
-	private int posFitnessMejor;
+	private String fenotipoMejorAbsoluto;
 	private Cromosoma cromosomaMejor;
-	private int posCromosomaMejor;
 	private Cromosoma cromosomaMejorAbsoluto;
 	private double porcentajeCruce;
 	private double porcentajeMutacion;
 	private double porcentajeEli;
 	private boolean elitista;
-	private double media;
 	private double[] listaFitnessMejorAbsoluto;
 	private double[] listaFitnessMejor;
 	private double[] listaMedias;
@@ -33,7 +29,6 @@ public class AlgoritmoGenetico {
 	private int numElegidosEli;
 	private Cromosoma[] poblacionEli;
 	private int tipoSeleccion;	
-	private int tipoCruce;
 	private int tipoMutacion;
 	private String tipoInicializacion;//cambiar a int
 	
@@ -50,9 +45,12 @@ public class AlgoritmoGenetico {
 		this.profundidadMaxima = profundidadMaxima;
 		this.elitista = elitista;
 		this.funcionIf = funcionIf;
+		this.listaFitnessMejorAbsoluto = new double[numGeneraciones];
+		this.listaFitnessMejor = new double[numGeneraciones];
+		this.listaMedias = new double[numGeneraciones];
 	}
 	
-	public void ejecutar() {
+	public void ejecutar() {	
 		Seleccion seleccion = new Torneo();
 		if (this.tipoSeleccion == 1) seleccion = new Ruleta();
 		else if (this.tipoSeleccion == 2) seleccion = new Estocastico();
@@ -63,17 +61,42 @@ public class AlgoritmoGenetico {
 		if (this.tipoMutacion == 1) mutacion = new MutacionTerminalSimple(porcentajeMutacion);
 	
 		iniciarAg();
-		calcularFitnessPoblacion();
+		calcularCromosomaMejor();
+		
+		if (this.elitista) {
+			this.numElegidosEli = (int) Math.round((this.porcentajeEli * this.lPoblacion));
+			this.poblacionEli = new Cromosoma[this.numElegidosEli];
+			ordenar();
+			Cromosoma c;
+			for (int i = 0; i < this.numElegidosEli; i++) {
+				c = this.poblacion[i].copy();
+				this.poblacionEli[i] = c;
+			}
+		}
 		
 		for(int i = 0 ; i< numGeneraciones; i++) {
 			poblacion = seleccion.ejecutar(poblacion, numGeneraciones);		
 			cruce.cualCruzaYCruzar(poblacion);
 			mutacion.cualMutaYMutar(poblacion);
+			
+			if (this.elitista) {
+				insertarPobEli();
+				seleccionarEli();
+			}
+			
+			calcularCromosomaMejor();
+			
+			this.listaMedias[i] = this.calcularMediaGeneracion();
+			this.listaFitnessMejor[i] = (double) this.cromosomaMejor.getFitness();
+			this.listaFitnessMejorAbsoluto[i] = (double) this.cromosomaMejorAbsoluto.getFitness();
+			
 			System.out.println(i);
-		}		
+		}
+		this.fenotipoMejorAbsoluto = this.cromosomaMejorAbsoluto.getArbol().toString();
 	}
 
 	public void iniciarAg() {
+		int posCromosomaMejor = 0;
 		poblacion = new Cromosoma[lPoblacion];
 		Leer leer = new Leer();
 		boolean[][] casos = leer.leerCasos();
@@ -83,81 +106,98 @@ public class AlgoritmoGenetico {
 			
 			poblacion[i].setFitness(poblacion[i].contarAciertos());
 			
-			if (poblacion[posCromosomaMejor].getFitness() < poblacion[i].getFitness()) {
+			if (poblacion[posCromosomaMejor].getFitness() <= poblacion[i].getFitness()) {
 				posCromosomaMejor = i;
-				cromosomaMejorAbsoluto = poblacion.clone()[posCromosomaMejor].copy();
+				cromosomaMejorAbsoluto = poblacion[posCromosomaMejor].copy();
 			}
 		}
 		
 		//Elitismo aqui
 		
-		//syso de pob[i] aqui
-		
+		//syso de pob[i] aqui	
 	}
 	
 	public void ordenar() {
-		quickSort(poblacion, 0, lPoblacion - 1);
-	}
-	
-	
-	public void quickSort(Cromosoma[] poblacion, int izq, int der) {
-		if(der <= izq)
-			return;
-		int i = dividir(poblacion,izq,der);
-		
-		quickSort(poblacion, izq, i-1);
-		quickSort(poblacion, i + 1, der);
-	}
-	
-	public int dividir(Cromosoma[] poblacion, int izq, int der) {
-		int i = izq -1;
-		int j = der;
-		while(true) {
-			
-			while(esMenor(poblacion[++i], poblacion[der]));
-			while(esMenor(poblacion[der], poblacion[--j]));			
-				if (j == izq) 
-					break;
-			if (i >= j)
-				break;
-			
-			swap(poblacion,i,j);	
-		}
-		swap(poblacion, i, der);
-		
-		return i;
-	}
+		Cromosoma c1;
+		Cromosoma c2;
 
-	public boolean esMenor(Cromosoma c1, Cromosoma c2) {
-		if(c1.getFitness() < c2.getFitness())
-			return true;
-		else
-			return false;
-	}
-	
-	private void swap(Cromosoma[] poblacion, int i, int j) {
-		Cromosoma aux = poblacion[i];
-		poblacion[i] = poblacion[j];
-		poblacion[j] = aux;
-	}
+		for (int i = 0; i < this.lPoblacion - 1; i++) {
+			for (int j = i; j < this.lPoblacion; j++) {
+				if (this.poblacion[i].getFitness() <
+				this.poblacion[j].getFitness()) {
+					c1 = this.poblacion[i].copy();
+					c2 = this.poblacion[j].copy();
 
-	public void calcularFitnessPoblacion() {
-		double puntuacionAcumulada = 0;
-		double fitnessMejor = 0;
-		double fitnessAcumulado = 0;
-		
-		for(int i = 0 ; i < lPoblacion; i++) {
-			fitnessAcumulado = fitnessAcumulado + this.poblacion[i].getFitness();
-			
-			if(poblacion[i].getFitness() > fitnessMejor) {
-				posFitnessMejor = i;
-				fitnessMejor = poblacion[i].getFitness();
-				cromosomaMejor = poblacion[i].copy();
+					this.poblacion[i] = c2;
+					this.poblacion[j] = c1;
+				}
 			}
 		}
-		
-		if(fitnessMejor > cromosomaMejorAbsoluto.getFitness() ) {
-			cromosomaMejorAbsoluto = cromosomaMejor.copy();
+	}
+
+	public void seleccionarEli() {
+		ordenar();
+		Cromosoma c;
+		for (int i = 0; i < this.numElegidosEli; i++) {
+			c = this.poblacion[i].copy();
+			this.poblacionEli[i] =  c;
 		}
+	}
+	public void insertarPobEli() {
+		Cromosoma c;
+		for (int i = 0; i < this.numElegidosEli; i++) {
+			c = this.poblacionEli[i].copy();
+			this.poblacion[this.lPoblacion - 1] = c;
+		}
+	}
+	
+	public void calcularCromosomaMejor() {
+		double fitnessMejor;
+		double fitness;
+		
+		fitnessMejor = 0;
+		for (int i = 0; i < this.lPoblacion; i++) {
+			fitness = this.poblacion[i].getFitness();
+			if (fitnessMejor < fitness) {
+				fitnessMejor = fitness;
+				this.cromosomaMejor = this.poblacion[i].copy();
+			}
+		}
+
+		if (this.cromosomaMejorAbsoluto.getFitness() > fitnessMejor) {
+			this.cromosomaMejorAbsoluto = this.cromosomaMejor.copy();
+		}
+	}
+
+	public double calcularMediaGeneracion() {
+		double media = 0.00;
+		double sumatorio = 0.00;
+		double fitness;
+
+		for (int i = 0; i < this.lPoblacion; i++) {
+			fitness = this.poblacion[i].getFitness();
+			sumatorio += fitness;
+		}
+
+		media = sumatorio / this.lPoblacion;
+
+		return media;
+	}
+	
+	//GETTERS AND SETTER
+	public String getFenotipoMejorAbsoluto() {
+		return fenotipoMejorAbsoluto;
+	}
+	public double getFitnessMejorAbsoluto() {
+		return cromosomaMejorAbsoluto.getFitness();
+	}
+	public double[] getListaFitnessMejorAbsoluto() {
+		return listaFitnessMejorAbsoluto;
+	}
+	public double[] getListaFitnessMejor() {
+		return listaFitnessMejor;
+	}
+	public double[] getListaMedias() {
+		return listaMedias;
 	}
 }

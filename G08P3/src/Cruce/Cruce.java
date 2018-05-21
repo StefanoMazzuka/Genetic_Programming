@@ -15,7 +15,6 @@ public class Cruce {
 		this.profundidadTotal = profundidadTotal;
 	}
 	
-	@SuppressWarnings("unused")
 	public void cualCruzaYCruzar(Cromosoma[] poblacion) {
 		
 		int[] seleccionados = new int[poblacion.length];

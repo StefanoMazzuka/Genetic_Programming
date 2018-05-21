@@ -1,13 +1,12 @@
 package Seleccion;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import Base.Cromosoma;
 
 public class Torneo extends Seleccion {
 
-	private double[] fitnessDesplazado;
+//	private double[] fitnessDesplazado;
 	Cromosoma[] poblacion;
 	Cromosoma[] poblacionTrio;
 	Cromosoma[] poblacionSeleccionada;
@@ -18,7 +17,7 @@ public class Torneo extends Seleccion {
 		this.poblacion = poblacion;
 		this.poblacionTrio = new Cromosoma[3];
 		this.poblacionSeleccionada = new Cromosoma[this.poblacion.length];
-		this.fitnessDesplazado = new double[this.poblacion.length];
+//		this.fitnessDesplazado = new double[this.poblacion.length];
 		
 		double mejor = 0.0;
 		Cromosoma mejorCromosoma = null;
@@ -69,15 +68,15 @@ public class Torneo extends Seleccion {
 		}
 		return this.poblacionSeleccionada;
 	}
-	public void desplazamiento(ArrayList<Cromosoma> pob) {
-		double fitnessMejor = 0;
-		for (int i = 0; i < pob.size(); i++) {
-			if(fitnessMejor < pob.get(i).getFitness())
-				fitnessMejor = pob.get(i).getFitness();
-		}
-		fitnessMejor = fitnessMejor * 1.05;
-		for (int i = 0; i < pob.size(); i++) {
-			this.fitnessDesplazado[i] = fitnessMejor - pob.get(i).getFitness();
-		}
-	}
+//	public void desplazamiento(ArrayList<Cromosoma> pob) {
+//		double fitnessMejor = 0;
+//		for (int i = 0; i < pob.size(); i++) {
+//			if(fitnessMejor < pob.get(i).getFitness())
+//				fitnessMejor = pob.get(i).getFitness();
+//		}
+//		fitnessMejor = fitnessMejor * 1.05;
+//		for (int i = 0; i < pob.size(); i++) {
+//			this.fitnessDesplazado[i] = fitnessMejor - pob.get(i).getFitness();
+//		}
+//	}
 }

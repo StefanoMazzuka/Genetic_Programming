@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.AlgorithmConstraints;
-import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -15,10 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import org.math.plot.*;
 
@@ -47,7 +42,7 @@ public class Menu extends JFrame {
 		JTextField numGen = new JTextField("300");
 		JTextField porCruce = new JTextField("0.75");
 		JTextField porMuta = new JTextField("0.1");
-		JTextField profundidad = new JTextField("5");
+		JTextField profundidad = new JTextField("6");
 		JCheckBox IF = new JCheckBox("", true);
 		JCheckBox eli = new JCheckBox("", true);
 		JLabel empty = new JLabel();
@@ -120,6 +115,7 @@ public class Menu extends JFrame {
 
 				else {
 
+					
 					int tipoSeleccion = seleccion.getSelectedIndex();
 					int tipoMutacion = mutacion.getSelectedIndex();
 					String tipoInicializacion = (String) inicializacion.getSelectedItem();
@@ -130,12 +126,31 @@ public class Menu extends JFrame {
 					int profundidadMaxima = Integer.parseInt(profundidad.getText());
 					boolean elitista = eli.isSelected();
 					boolean funcionIf = IF.isSelected();
-
+					
+					generacion = new double[numGeneraciones];
+					for (int i = 0; i < numGeneraciones; i++)
+						generacion[i] = i;
+					mejoresFitnessAbsolutos = new double[numGeneraciones];
+					mejoresFitness = new double[numGeneraciones];
+					
 					AlgoritmoGenetico ag;
 
 					ag = new AlgoritmoGenetico(tipoSeleccion, tipoMutacion, tipoInicializacion, lPoblacion, numGeneraciones,
 							porcentajeCruce, porcentajeMutacion, profundidadMaxima, elitista, funcionIf);
 					ag.ejecutar();
+
+					fitMejor.setText("Fitness Mejor: " + ag.getFitnessMejorAbsoluto());
+					genMejor.setText("Gen Mejor: " + ag.getFenotipoMejorAbsoluto());
+
+					mejoresFitnessAbsolutos = ag.getListaFitnessMejorAbsoluto();
+					mejoresFitness = ag.getListaFitnessMejor();
+					listaMedias = ag.getListaMedias();
+
+					grafica.setVisible(false);
+					grafica.removeAllPlots();
+					pintarGrafica(graficaPanel, grafica, generacion, mejoresFitnessAbsolutos, "Mejor absoluto");
+					pintarGrafica(graficaPanel, grafica, generacion, mejoresFitness, "Mejor de la generación");
+					pintarGrafica(graficaPanel, grafica, generacion, listaMedias, "Media de la generación");
 				} 
 			}
 		});	

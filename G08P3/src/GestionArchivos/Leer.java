@@ -39,6 +39,8 @@ public class Leer {
 				fila++;
 			}
 
+			br.close();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			JOptionPane.showMessageDialog(null, e);

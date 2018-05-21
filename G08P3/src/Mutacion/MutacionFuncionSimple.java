@@ -23,7 +23,8 @@ public class MutacionFuncionSimple extends Mutacion {
 			
 			if(porcentaje < this.porcentajeMutacion) {
 				poblacion[i].setArbol(mutar(poblacion[i].getArbol(), 
-						poblacion[i].getNodosFuncion(), poblacion[i].getNodosTerminales()));
+						poblacion[i].getNodosFuncion(), 
+						poblacion[i].getNodosTerminales()));
 			}
 		}
 	}
