@@ -25,6 +25,8 @@ public class MutacionTerminalSimple extends Mutacion {
 				poblacion[i].setArbol(mutar(poblacion[i].getArbol(), 
 						poblacion[i].getNodosFuncion(), poblacion[i].getNodosTerminales()));
 			}
+			
+			poblacion[i].setFitness(poblacion[i].contarAciertos());
 		}
 	}
 	@Override

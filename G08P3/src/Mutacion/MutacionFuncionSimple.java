@@ -14,6 +14,16 @@ public class MutacionFuncionSimple extends Mutacion {
 		this.porcentajeMutacion = porcentajeMutacion;
 	}
 	
+	/*
+	 * Según un porcentaje de mutación, elegimos si mutar el cromosoma.
+	 * 
+	 * Parámetros de entrada:
+	 * poblacion:	Array de Cromosomas.
+	 * 
+	 * Lógica:
+	 * 1. Recorremos la población.
+	 * 2. Generamos un 
+	 */
 	@Override
 	public void cualMutaYMutar(Cromosoma[] poblacion) {
 		// TODO Auto-generated method stub
@@ -26,6 +36,8 @@ public class MutacionFuncionSimple extends Mutacion {
 						poblacion[i].getNodosFuncion(), 
 						poblacion[i].getNodosTerminales()));
 			}
+			
+			poblacion[i].setFitness(poblacion[i].contarAciertos());
 		}
 	}
 	@Override

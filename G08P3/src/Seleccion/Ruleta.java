@@ -7,7 +7,6 @@ import Base.Cromosoma;
 public class Ruleta extends Seleccion {	
 
 	private double[] puntuacion;
-//	private double[] fitnessDesplazado;
 	private double fitnessTotalPoblacion;
 	Cromosoma[] poblacion;
 	
@@ -19,12 +18,9 @@ public class Ruleta extends Seleccion {
 			this.poblacion[i] = poblacion[i].copy();
 		}
 		this.puntuacion = new double[this.poblacion.length];
-//		this.fitnessDesplazado = new double[this.poblacion.length];
 		this.fitnessTotalPoblacion = 0;
 		
 		Cromosoma[] pobSeleccionada = new Cromosoma[this.poblacion.length];
-		
-		//desplazamiento(poblacion);
 		
 		for (int i = 0; i < this.poblacion.length; i++) {
 			this.fitnessTotalPoblacion += this.poblacion[i].getFitness();
@@ -50,15 +46,4 @@ public class Ruleta extends Seleccion {
 	
 		return pobSeleccionada;
 	}
-//	public void desplazamiento(Cromosoma[] poblacion) {
-//		double fitnessMejor = 0;
-//		for (int i = 0; i < poblacion.length; i++) {
-//			if(fitnessMejor < poblacion[i].getFitness())
-//				fitnessMejor = poblacion[i].getFitness();
-//		}
-//		fitnessMejor = fitnessMejor * 1.05;
-//		for (int i = 0; i < poblacion.length; i++) {
-//			this.fitnessDesplazado[i] = fitnessMejor - poblacion[i].getFitness();
-//		}
-//	}
 }

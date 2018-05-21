@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.math.plot.*;
@@ -49,6 +51,10 @@ public class Menu extends JFrame {
 		JButton ok = new JButton("Ok");
 		JLabel fitMejor = new JLabel("Fitness Mejor:");
 		JLabel genMejor = new JLabel("Gen Mejor:");
+		JTextArea genResul = new JTextArea();
+		genResul.setEditable(false);
+		genResul.setLineWrap(true);
+		genResul.setWrapStyleWord(true);
 
 		setSize(new Dimension(700, 500));
 		setLocationRelativeTo(null); 
@@ -91,18 +97,23 @@ public class Menu extends JFrame {
 		resultados.add(fitMejor);
 		resultados.add(genMejor);
 
-		JPanel graficaPanel = new JPanel();
-		graficaPanel.setLayout(new BorderLayout());
+		JPanel graficaPanel = new JPanel(new BorderLayout());
 		graficaPanel.add(grafica, BorderLayout.CENTER);
-		graficaPanel.add(resultados, BorderLayout.SOUTH);
 
 		JPanel programa = new JPanel();
 		programa.setLayout(new BorderLayout());
 		programa.add(menuPanel, BorderLayout.WEST);
 		programa.add(graficaPanel, BorderLayout.CENTER);
+		programa.add(resultados, BorderLayout.SOUTH);
 		// Fin panel programa
 
-		add(programa);
+		
+		JScrollPane scrollGenResul = new JScrollPane(genResul);
+		scrollGenResul.setPreferredSize(new Dimension(700, 100));
+		
+		setLayout(new BorderLayout());
+		add(programa, BorderLayout.CENTER);
+		add(scrollGenResul, BorderLayout.SOUTH);
 
 		ok.addActionListener(new ActionListener() {
 
@@ -114,8 +125,7 @@ public class Menu extends JFrame {
 				}
 
 				else {
-
-					
+			
 					int tipoSeleccion = seleccion.getSelectedIndex();
 					int tipoMutacion = mutacion.getSelectedIndex();
 					String tipoInicializacion = (String) inicializacion.getSelectedItem();
@@ -140,7 +150,7 @@ public class Menu extends JFrame {
 					ag.ejecutar();
 
 					fitMejor.setText("Fitness Mejor: " + ag.getFitnessMejorAbsoluto());
-					genMejor.setText("Gen Mejor: " + ag.getFenotipoMejorAbsoluto());
+					genResul.setText(ag.getFenotipoMejorAbsoluto());
 
 					mejoresFitnessAbsolutos = ag.getListaFitnessMejorAbsoluto();
 					mejoresFitness = ag.getListaFitnessMejor();
@@ -151,7 +161,7 @@ public class Menu extends JFrame {
 					pintarGrafica(graficaPanel, grafica, generacion, mejoresFitnessAbsolutos, "Mejor absoluto");
 					pintarGrafica(graficaPanel, grafica, generacion, mejoresFitness, "Mejor de la generación");
 					pintarGrafica(graficaPanel, grafica, generacion, listaMedias, "Media de la generación");
-				} 
+				}
 			}
 		});	
 	}

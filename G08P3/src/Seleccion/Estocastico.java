@@ -1,6 +1,5 @@
 package Seleccion;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import Base.Cromosoma;
@@ -8,7 +7,6 @@ import Base.Cromosoma;
 public class Estocastico extends Seleccion {
 
 	private double[] puntuacion;
-	private double[] fitnessDesplazado;
 	private double fitnessTotalPoblacion;
 	Cromosoma[] poblacion;
 
@@ -17,7 +15,6 @@ public class Estocastico extends Seleccion {
 		// TODO Auto-generated method stub
 		this.poblacion = poblacion;
 		this.puntuacion = new double[this.poblacion.length];
-		this.fitnessDesplazado = new double[this.poblacion.length];
 		this.fitnessTotalPoblacion = 0;
 		
 		Cromosoma[] pobSeleccionada = new Cromosoma[this.poblacion.length];
@@ -73,16 +70,5 @@ public class Estocastico extends Seleccion {
 		}
 		
 		return pobSeleccionada;
-	}
-	public void desplazamiento(ArrayList<Cromosoma> poblacion) {
-		double fitnessMejor = 0;
-		for (int i = 0; i < poblacion.size(); i++) {
-			if(fitnessMejor < poblacion.get(i).getFitness())
-				fitnessMejor = poblacion.get(i).getFitness();
-		}
-		fitnessMejor = fitnessMejor * 1.05;
-		for (int i = 0; i < poblacion.size(); i++) {
-			this.fitnessDesplazado[i] = fitnessMejor - poblacion.get(i).getFitness();
-		}
 	}
 }

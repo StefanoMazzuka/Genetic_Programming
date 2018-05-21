@@ -54,8 +54,8 @@ public class Cromosoma {
 		int fitness = 0;
 			if(arbol.calcularFitnessRecursivo(casosDePrueba)==salida)
 				fitness++;
+			
 		return fitness;
-		
 	}
 	
 	public Cromosoma copy() {
