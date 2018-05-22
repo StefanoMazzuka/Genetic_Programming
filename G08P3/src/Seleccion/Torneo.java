@@ -30,7 +30,7 @@ public class Torneo extends Seleccion {
 			/*
 			 * Elegimos el trio al azar
 			 */
-			mejor = Double.MAX_VALUE;
+			mejor = Double.MIN_VALUE;
             for (int i = 0; i < 3; i++) {
                 cualToca = r.nextInt(this.poblacion.length) ;
                 this.poblacionTrio[i] = this.poblacion[cualToca].copy();
@@ -41,7 +41,7 @@ public class Torneo extends Seleccion {
                 //desplazamiento(pobTrio);
 
                 // .Fitness??
-                if (mejor > this.poblacionTrio[i].getFitness()) {
+                if (mejor < this.poblacionTrio[i].getFitness()) {
                     mejor = this.poblacionTrio[i].getFitness();
                     mejorCromosoma = this.poblacionTrio[i].copy();
                 }

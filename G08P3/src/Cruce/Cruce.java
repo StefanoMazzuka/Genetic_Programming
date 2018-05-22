@@ -14,7 +14,9 @@ public class Cruce {
 		this.porcentajeCruce = probCruce;
 		this.profundidadTotal = profundidadTotal;
 	}
-	
+	/*
+	 * Seleccionas que elemento cruza mediante un porcentaje de cruce.
+	 */
 	public void cualCruzaYCruzar(Cromosoma[] poblacion) {
 		
 		int[] seleccionados = new int[poblacion.length];
@@ -90,15 +92,20 @@ public class Cruce {
 	 * Cruzamos dos arboles por un punto.
 	 * 
 	 */
+
 	private void cruzarNodos(Arbol puntoUno, Arbol puntoDos) {
+		
 		for (int i = 0; i < puntoUno.getPadre().getHijos().size(); i++) {
 			for (int j = 0; j < puntoDos.getPadre().getHijos().size(); j++) {
+				
 				if (puntoUno.getPadre().getHijos().get(i).equals(puntoUno) &&
 				puntoDos.getPadre().getHijos().get(j).equals(puntoDos)) {
+					
 					if (((this.profundidadTotal - puntoDos.getProfundidad()) + 
 							puntoUno.getPadre().getProfundidad() < this.profundidadTotal) &&
 							((this.profundidadTotal - puntoUno.getProfundidad()) + 
 									puntoDos.getPadre().getProfundidad() < this.profundidadTotal)) {
+						
 						puntoUno.getPadre().getHijos().set(i, puntoDos);
 						puntoDos.getPadre().getHijos().set(j, puntoUno);
 						

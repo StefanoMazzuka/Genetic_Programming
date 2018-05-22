@@ -171,6 +171,9 @@ public class AlgoritmoGenetico {
 	}
 
 	//GETTERS AND SETTER
+	public int getAciertos() {
+		return cromosomaMejorAbsoluto.getAciertos();
+	}
 	public String getFenotipoMejorAbsoluto() {
 		return fenotipoMejorAbsoluto;
 	}

@@ -48,6 +48,7 @@ public class Menu extends JFrame {
 		JButton ok = new JButton("Ok");
 		JLabel fitMejor = new JLabel("Fitness Mejor:");
 		JLabel genMejor = new JLabel("Gen Mejor:");
+		JLabel acier = new JLabel("Aciertos:");
 		JTextArea genResul = new JTextArea();
 		genResul.setEditable(false);
 		genResul.setLineWrap(true);
@@ -90,7 +91,8 @@ public class Menu extends JFrame {
 
 		grafica.addLegend("SOUTH");
 
-		JPanel resultados = new JPanel(new GridLayout(2, 1));
+		JPanel resultados = new JPanel(new GridLayout(3, 1));
+		resultados.add(acier);
 		resultados.add(fitMejor);
 		resultados.add(genMejor);
 
@@ -103,7 +105,6 @@ public class Menu extends JFrame {
 		programa.add(graficaPanel, BorderLayout.CENTER);
 		programa.add(resultados, BorderLayout.SOUTH);
 		// Fin panel programa
-
 		
 		JScrollPane scrollGenResul = new JScrollPane(genResul);
 		scrollGenResul.setPreferredSize(new Dimension(700, 100));
@@ -146,6 +147,7 @@ public class Menu extends JFrame {
 							porcentajeCruce, porcentajeMutacion, profundidadMaxima, elitista, funcionIf);
 					ag.ejecutar();
 
+					acier.setText("Aciertos: " + ag.getAciertos());
 					fitMejor.setText("Fitness Mejor: " + ag.getFitnessMejorAbsoluto());
 					genResul.setText(ag.getFenotipoMejorAbsoluto());
 

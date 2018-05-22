@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Cromosoma {
 	private Arbol arbol;
 	private int fitness;
+	private int aciertos;
 	private double puntuacion;
 	private double puntuacionAcumulada;
 	private boolean funcionIf;
@@ -16,7 +17,7 @@ public class Cromosoma {
 
 	private double puntEscaladoSimple;
 	private double puntAcuEscaladoSimple;
-	
+
 	public Cromosoma() {}
 	public Cromosoma(String inicializacion, boolean funcionIf, int alturaMaxima, boolean[][] casosDePrueba){
 		this.fitness = 0;
@@ -29,39 +30,43 @@ public class Cromosoma {
 		this.arbol = Arbol.inicializarArbol(inicializacion, funcionIf, profundidadTotal);
 		this.casosDePrueba = casosDePrueba;
 	}
-	
+
 	public int contarAciertos(){
-		
-		int aciertos = 0;
-		
+
+		this.aciertos = 0;
+
 		for (int i = 0; i < casosDePrueba.length; i++) {
-			aciertos += calcularFitness(casosDePrueba[i], casosDePrueba[i][6]);
+			this.aciertos += calcularFitness(casosDePrueba[i], casosDePrueba[i][6]);
 		}
-		 return aciertos;
+		
+		int fitnessReal = this.aciertos;
+		fitnessReal -= arbol.getNumNodos() * 0.1;
+
+		return Math.max(fitnessReal, 0);
 	}
 	public int calcularFitness(boolean[] casosDePrueba, boolean salida) {
 		int fitness = 0;
-			if(arbol.calcularFitnessRecursivo(casosDePrueba)==salida)
-				fitness++;
-			
+		if(arbol.calcularFitnessRecursivo(casosDePrueba)==salida)
+			fitness++;
+
 		return fitness;
 	}
-	
+
 	public Cromosoma copy() {
-		
+
 		Arbol arbol = this.arbol.copy();
 		ArrayList<Arbol> nodosFuncion = new ArrayList<Arbol>();
 		for (int i = 0; i < this.nodosFuncion.size(); i++) {
 			nodosFuncion.add(this.nodosFuncion.get(i).copy());
 		}
-		
+
 		ArrayList<Arbol> nodosTerminales = new ArrayList<Arbol>();
 		for (int i = 0; i < this.nodosTerminales.size(); i++) {
 			nodosTerminales.add(this.nodosTerminales.get(i).copy());
 		}		
-		
+
 		Cromosoma c = new Cromosoma();
-		
+
 		c.setArbol(arbol);
 		c.setNodosFuncion(nodosFuncion);
 		c.setNodosTerminales(nodosTerminales);
@@ -74,7 +79,8 @@ public class Cromosoma {
 		c.setProfundidadTotal(this.profundidadTotal);
 		c.setPuntEscaladoSimple(this.puntEscaladoSimple);
 		c.setPuntAcuEscaladoSimple(this.puntAcuEscaladoSimple);
-		
+		c.setAciertos(this.aciertos);
+
 		return c;
 	}
 	/*
@@ -127,5 +133,11 @@ public class Cromosoma {
 	}
 	public void setPuntAcuEscaladoSimple(double puntAcuEscaladoSimple) {
 		this.puntAcuEscaladoSimple = puntAcuEscaladoSimple;
+	}
+	public void setAciertos(int aciertos) {
+		this.aciertos = aciertos;
+	}
+	public int getAciertos() {
+		return aciertos;
 	}
 }

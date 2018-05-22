@@ -53,7 +53,8 @@ public class Arbol {
 	 * Inicializamos por metodo CRECIENTE el arbol.
 	 */
 	private Arbol inicializarArbolCreciente(Arbol padre, boolean funcionIf, 
-			int profundidad, int profundidadTotal) {	
+			int profundidad, int profundidadTotal) {
+		
 		Arbol a = new Arbol(padre, profundidad, profundidadTotal);
 
 		if (a.profundidad < a.profundidadTotal) {
