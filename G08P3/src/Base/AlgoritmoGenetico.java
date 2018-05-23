@@ -96,7 +96,7 @@ public class AlgoritmoGenetico {
 		boolean[][] casos = leer.leerCasos();
 		for(int i = 0; i < lPoblacion; i++  ) {
 			poblacion[i]= new Cromosoma(tipoInicializacion, funcionIf, profundidadMaxima, casos);
-			poblacion[i]= new Cromosoma(tipoInicializacion, funcionIf, profundidadMaxima, casos);
+			//poblacion[i]= new Cromosoma(tipoInicializacion, funcionIf, profundidadMaxima, casos);
 
 			poblacion[i].setFitness(poblacion[i].contarAciertos());
 

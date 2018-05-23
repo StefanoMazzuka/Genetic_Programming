@@ -6,8 +6,6 @@ public class Cromosoma {
 	private Arbol arbol;
 	private int fitness;
 	private int aciertos;
-	private double puntuacion;
-	private double puntuacionAcumulada;
 	private boolean funcionIf;
 	private String inicializacion;
 	private ArrayList<Arbol> nodosFuncion;
@@ -21,8 +19,6 @@ public class Cromosoma {
 	public Cromosoma() {}
 	public Cromosoma(String inicializacion, boolean funcionIf, int alturaMaxima, boolean[][] casosDePrueba){
 		this.fitness = 0;
-		this.puntuacion = 0;
-		this.puntuacionAcumulada = 0;
 		this.funcionIf = funcionIf;
 		this.profundidadTotal = alturaMaxima;
 		this.nodosFuncion = new ArrayList<Arbol>();
@@ -72,8 +68,6 @@ public class Cromosoma {
 		c.setNodosTerminales(nodosTerminales);
 		c.setCasosDePrueba(this.casosDePrueba);
 		c.setFitness(this.fitness);
-		c.setPuntuacion(this.puntuacion);
-		c.setPuntuacionAcumulada(this.puntuacionAcumulada);
 		c.setFuncionIf(this.funcionIf);
 		c.setInicializacion(this.inicializacion);
 		c.setProfundidadTotal(this.profundidadTotal);
@@ -109,12 +103,6 @@ public class Cromosoma {
 	}
 	public void setNodosTerminales(ArrayList<Arbol> nodosTerminales) {
 		this.nodosTerminales = nodosTerminales;
-	}
-	public void setPuntuacion(double puntuacion) {
-		this.puntuacion = puntuacion;
-	}
-	public void setPuntuacionAcumulada(double puntuacionAcumulada) {
-		this.puntuacionAcumulada = puntuacionAcumulada;
 	}
 	public void setFuncionIf(boolean funcionIf) {
 		this.funcionIf = funcionIf;
